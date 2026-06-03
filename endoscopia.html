@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preparación para Endoscopia Superior | Dr. Barragán Córdova</title>
+<style>
+:root {
+  --pri:      #0c7a69;
+  --pri-dark: #085e50;
+  --pri-light:#e5f4f1;
+  --pri-mid:  #1a9080;
+  --text:     #172824;
+  --muted:    #557068;
+  --border:   #c5deda;
+  --bg:       #f3f8f7;
+  --white:    #ffffff;
+  --stop-bg:  #fff2f2;
+  --stop-bd:  #d94f4f;
+  --diet-bg:  #f0faf6;
+  --diet-bd:  #3aac8c;
+  --med-bg:   #f2f0ff;
+  --med-bd:   #7060d0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.65; font-size: 15px; }
+
+/* ── Header ── */
+.hdr { background: var(--white); border-bottom: 3px solid var(--pri-light);
+       padding: 28px 20px 22px; text-align: center; }
+.hdr h1 { font-size: clamp(1.1rem,4.5vw,1.5rem); font-weight: 800;
+           color: var(--pri-dark); letter-spacing: -0.02em; }
+.hdr .esp { font-size: .83rem; color: var(--pri-mid); font-weight: 600; margin-top: 4px; }
+.hdr .ced { font-size: .72rem; color: var(--muted); margin-top: 3px; }
+.hdr .pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 12px; }
+.pill { background: var(--pri-light); color: var(--pri-dark);
+        font-size: .7rem; font-weight: 700; border-radius: 20px; padding: 3px 11px; }
+.hdr .contact { margin-top: 12px; font-size: .78rem; color: var(--muted); line-height: 1.7; }
+.hdr .contact a { color: #1aac70; text-decoration: none; font-weight: 600; }
+
+/* ── Wrapper ── */
+.wrap { max-width: 680px; margin: 0 auto; padding: 22px 16px 48px; }
+
+/* ── Selector card ── */
+.sel-card { background: var(--white); border-radius: 14px; padding: 22px 20px;
+            box-shadow: 0 2px 14px rgba(0,0,0,.07); border: 1px solid var(--border); margin-bottom: 20px; }
+.sel-card h2 { font-size: .95rem; font-weight: 800; color: var(--pri-dark);
+               margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media(max-width:420px){ .row2 { grid-template-columns: 1fr; } }
+.fg { margin-bottom: 14px; }
+.fg .lbl { display: block; font-size: .68rem; font-weight: 800; color: var(--muted);
+            text-transform: uppercase; letter-spacing: .08em; margin-bottom: 5px; }
+.fg select {
+  width: 100%; padding: 10px 34px 10px 12px;
+  border: 1.5px solid var(--border); border-radius: 9px;
+  font-size: .9rem; color: var(--text); background: var(--white);
+  -webkit-appearance: none; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230c7a69' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center; background-size: 16px;
+  cursor: pointer; transition: border-color .15s, box-shadow .15s;
+}
+.fg select:focus { outline: none; border-color: var(--pri); box-shadow: 0 0 0 3px rgba(12,122,105,.12); }
+
+/* ── Add-ons ── */
+.addons-wrap { border-top: 1px solid var(--border); margin-top: 4px; padding-top: 14px; }
+.addons-lbl { font-size: .68rem; font-weight: 800; color: var(--muted);
+              text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; }
+.addon-row { display: flex; align-items: center; gap: 12px; padding: 9px 0; }
+.addon-row + .addon-row { border-top: 1px solid var(--border); }
+.tog { position: relative; width: 44px; height: 25px; flex-shrink: 0; }
+.tog input { opacity: 0; width: 0; height: 0; position: absolute; }
+.tog-track { position: absolute; inset: 0; background: var(--border); border-radius: 25px;
+             cursor: pointer; transition: background .2s; }
+.tog-track::after { content: ''; position: absolute; width: 19px; height: 19px;
+                    background: var(--white); border-radius: 50%; top: 3px; left: 3px;
+                    transition: left .2s; box-shadow: 0 1px 4px rgba(0,0,0,.25); }
+.tog input:checked ~ .tog-track { background: var(--pri); }
+.tog input:checked ~ .tog-track::after { left: 22px; }
+.addon-txt { flex: 1; }
+.addon-txt strong { display: block; font-size: .87rem; }
+.addon-txt span { font-size: .74rem; color: var(--muted); }
+
+/* ── Output card ── */
+.out-card { background: var(--white); border-radius: 14px; padding: 22px 20px;
+            box-shadow: 0 2px 14px rgba(0,0,0,.07); border: 1px solid var(--border); }
+.empty { text-align: center; color: var(--muted); padding: 36px 16px; font-size: .9rem; line-height: 1.8; }
+.empty .ico { font-size: 2.4rem; display: block; margin-bottom: 12px; opacity: .45; }
+
+/* ── Prep title ── */
+.prep-title { font-size: 1rem; font-weight: 800; color: var(--pri-dark);
+              margin-bottom: 20px; padding-bottom: 14px; border-bottom: 2px solid var(--pri-light); }
+.prep-title small { display: block; font-size: .74rem; font-weight: 500; color: var(--muted); margin-top: 4px; }
+
+/* ── Day blocks ── */
+.day-block { margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid var(--border); }
+.day-block:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.day-lbl { display: flex; align-items: baseline; gap: 7px; margin-bottom: 12px; }
+.day-lbl .emo { font-size: 1.15rem; line-height: 1; }
+.day-lbl .dname { font-weight: 800; font-size: .96rem; color: var(--pri-dark); }
+.day-lbl .dsub { font-size: .75rem; color: var(--muted); }
+.instr { font-size: .86rem; margin-bottom: 9px; }
+
+/* ── Boxes ── */
+.box { border-radius: 10px; padding: 13px 15px; margin: 10px 0; font-size: .85rem; line-height: 1.6; }
+.bx-stop { background: var(--stop-bg); border-left: 3px solid var(--stop-bd); font-weight: 600; }
+.bx-stop strong { color: var(--stop-bd); }
+.bx-info { background: var(--pri-light); border-left: 3px solid var(--pri); }
+.bx-info strong { color: var(--pri-dark); }
+
+/* ── Diet expandable ── */
+details.diet-ex { background: var(--diet-bg); border-left: 3px solid var(--diet-bd);
+                  border-radius: 0 9px 9px 0; margin: 10px 0; }
+details.diet-ex summary { padding: 10px 14px; font-size: .83rem; font-weight: 700;
+                           color: #1d6b4a; cursor: pointer; list-style: none;
+                           display: flex; align-items: center; gap: 6px; }
+details.diet-ex summary::-webkit-details-marker { display: none; }
+details.diet-ex summary::after { content: '▼'; font-size: .6rem; margin-left: auto;
+                                  transition: transform .2s; }
+details.diet-ex[open] summary::after { transform: rotate(-180deg); }
+.dex-body { padding: 2px 14px 12px; font-size: .8rem; line-height: 1.75; }
+.dex-body ul { padding-left: 18px; }
+.dex-body li { margin-bottom: 2px; }
+
+/* ── Appointment ── */
+.appt { background: linear-gradient(135deg, var(--pri-dark) 0%, var(--pri-mid) 100%);
+        border-radius: 12px; padding: 18px 20px; color: var(--white); margin-top: 6px; }
+.appt h3 { font-size: .68rem; font-weight: 700; text-transform: uppercase;
+           letter-spacing: .1em; opacity: .75; margin-bottom: 10px; }
+.appt .arow { font-size: .88rem; margin-bottom: 5px; display: flex; align-items: flex-start; gap: 8px; }
+
+/* ── Location card ── */
+.loc-card { background: var(--bg); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px; margin-top: 14px; }
+.loc-card .loc-det { font-size: .83rem; color: var(--text); line-height: 1.75; margin-bottom: 12px; }
+.loc-card .loc-park { font-size: .77rem; color: var(--muted); display: block; margin-top: 6px; }
+.map-img { width: 100%; height: 160px; border-radius: 9px; border: 1px solid var(--border);
+           object-fit: cover; display: block; margin-bottom: 10px; background: var(--pri-light); }
+.map-btn { display: inline-flex; align-items: center; gap: 7px;
+           background: var(--pri); color: var(--white); text-decoration: none;
+           font-size: .82rem; font-weight: 700; padding: 9px 16px; border-radius: 8px; }
+.map-btn:hover { background: var(--pri-dark); }
+
+/* ── Medications card ── */
+.info-card { border-radius: 12px; padding: 18px 20px; margin-top: 14px; }
+.med-card  { background: var(--med-bg); border: 1px solid var(--med-bd); }
+.info-title { font-size: .9rem; font-weight: 800; margin-bottom: 14px; display: block; }
+.med-card .info-title { color: #3020a0; }
+.info-det { border-bottom: 1px solid rgba(0,0,0,.07); }
+.info-det:last-of-type { border-bottom: none; }
+.info-det summary {
+  font-size: .83rem; font-weight: 700; cursor: pointer; padding: 10px 2px;
+  list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+.info-det summary::-webkit-details-marker { display: none; }
+.info-det summary::after { content: '+'; font-size: 1rem; opacity: .45; flex-shrink: 0; }
+.info-det[open] summary::after { content: '−'; }
+.info-det[open] summary { color: var(--pri); }
+.info-det > div { font-size: .8rem; line-height: 1.8; padding: 2px 2px 12px; }
+.glp1-box  { background: #fff3e0; border: 1.5px solid #f59e0b; border-radius: 10px; padding: 14px 16px; margin-top: 14px; }
+.glp1-title { font-size: .85rem; font-weight: 800; color: #7a4500; margin-bottom: 3px; }
+.glp1-sub   { font-size: .73rem; color: #9a6500; margin-bottom: 8px; font-style: italic; }
+.glp1-body  { font-size: .8rem; line-height: 1.8; }
+
+/* ── General notes ── */
+.gnotes { background: var(--bg); border-radius: 10px; padding: 14px 16px;
+          margin-top: 14px; font-size: .8rem; color: var(--muted); line-height: 1.8; }
+.gnotes strong { color: var(--text); }
+
+/* ── Footer ── */
+.ftr { text-align: center; padding: 24px 16px; font-size: .7rem; color: var(--muted); line-height: 1.9; }
+.ftr a { color: var(--pri); text-decoration: none; }
+
+@media print {
+  body { background: white; }
+  .sel-card { display: none; }
+  .out-card, .hdr { box-shadow: none; border: none; }
+  .map-img { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <h1>Dr. Héctor Hugo Barragán Córdova</h1>
+  <div class="esp">Medicina Interna &nbsp;·&nbsp; Gastroenterología &nbsp;·&nbsp; Endoscopia Gastrointestinal</div>
+  <div class="ced">Cédula Prof. 4784900 &nbsp;·&nbsp; Esp. 7876212 &nbsp;·&nbsp; Esp. 8025889</div>
+  <div class="pills">
+    <span class="pill">🏥 Ángeles Universidad</span>
+    <span class="pill">🏥 Ángeles Pedregal</span>
+    <span class="pill">🏥 San Ángel Inn HMG</span>
+    <span class="pill">🏥 Gastrologen</span>
+  </div>
+  <div class="contact">
+    📞 55&nbsp;5568-7058 &nbsp;·&nbsp; 55&nbsp;3683-7574 &nbsp;·&nbsp; 📱 55&nbsp;3204-8657<br>
+    <a href="https://wa.me/525532048657?text=Hola%20Dr.%20Barragán%2C%20tengo%20una%20pregunta%20sobre%20mi%20preparación">💬 Escribir al Dr. por WhatsApp</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="sel-card">
+    <h2>🔬 Generar instrucciones de preparación</h2>
+
+    <div class="fg">
+      <span class="lbl">Tipo de procedimiento</span>
+      <select id="sx" onchange="gen()">
+        <option value="">— Seleccione —</option>
+        <option value="panen">Panendoscopia</option>
+        <option value="cpre">CPRE</option>
+      </select>
+    </div>
+
+    <div class="row2">
+      <div class="fg">
+        <span class="lbl">Día del procedimiento</span>
+        <select id="sd" onchange="gen()">
+          <option value="">— Día —</option>
+          <option value="1">Lunes</option>
+          <option value="2">Martes</option>
+          <option value="3">Miércoles</option>
+          <option value="4">Jueves</option>
+          <option value="5">Viernes</option>
+          <option value="6">Sábado</option>
+          <option value="0">Domingo</option>
+        </select>
+      </div>
+      <div class="fg">
+        <span class="lbl">Hora del procedimiento</span>
+        <select id="sh" onchange="gen()">
+          <option value="">— Hora —</option>
+          <option value="480">8:00 am</option>
+          <option value="540">9:00 am</option>
+          <option value="600">10:00 am</option>
+          <option value="660">11:00 am</option>
+          <option value="720">12:00 pm</option>
+          <option value="780">1:00 pm</option>
+          <option value="840">2:00 pm</option>
+          <option value="900">3:00 pm</option>
+          <option value="960">4:00 pm</option>
+          <option value="1020">5:00 pm</option>
+          <option value="1080">6:00 pm</option>
+          <option value="1140">7:00 pm</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="fg">
+      <span class="lbl">Lugar del procedimiento</span>
+      <select id="sl" onchange="gen()">
+        <option value="">— Seleccione —</option>
+        <option value="gastrologen">Gastrologen</option>
+        <option value="san-angel">San Ángel Inn HMG</option>
+        <option value="angeles-uni">Hospital Ángeles Universidad</option>
+        <option value="angeles-ped">Ángeles Pedregal</option>
+      </select>
+    </div>
+
+    <div class="addons-wrap">
+      <div class="addons-lbl">Opciones adicionales</div>
+
+      <div class="addon-row">
+        <label class="tog">
+          <input type="checkbox" id="ck-dieta" onchange="gen()">
+          <span class="tog-track"></span>
+        </label>
+        <div class="addon-txt">
+          <strong>Quiero ejemplos de dieta</strong>
+          <span>Ver alimentos permitidos en cada etapa</span>
+        </div>
+      </div>
+
+      <div class="addon-row">
+        <label class="tog">
+          <input type="checkbox" id="ck-medicamentos" onchange="gen()">
+          <span class="tog-track"></span>
+        </label>
+        <div class="addon-txt">
+          <strong>Medicamentos de uso crónico</strong>
+          <span>Instrucciones para el día del procedimiento</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="out-card" id="out">
+    <div class="empty">
+      <span class="ico">🩺</span>
+      Seleccione el procedimiento, día, hora y lugar<br>para generar las instrucciones personalizadas.
+    </div>
+  </div>
+
+</div>
+
+<div class="ftr">
+  Dr. Héctor Hugo Barragán Córdova &nbsp;·&nbsp; Medicina Interna · Gastroenterología · Endoscopia Gastrointestinal<br>
+  📞 55 5568-7058 &nbsp;·&nbsp; 55 3683-7574 &nbsp;·&nbsp; 📱 55 3204-8657<br>
+  <a href="https://wa.me/525532048657">💬 WhatsApp: 55 3204-8657</a>
+</div>
+
+<script>
+// ── Constants ─────────────────────────────────────────────────────────────────
+
+const DIAS = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+
+// Fasting rules
+const SOLID_FAST  = 6 * 60;  // 6 h for light solid food
+const LIQUID_FAST = 3 * 60;  // 3 h for clear liquids
+
+// Mode thresholds
+// earlyFast    proc < 10 am  → last solid food was dinner night before; morning = water only
+// liquidMorn   10 am ≤ proc < 1 pm → morning clear liquids until liquid cutoff
+// breakfast    proc ≥ 1 pm   → light breakfast until solid cutoff, then clear liquids
+
+const T_EARLY   = 10 * 60;
+const T_LIQUID  = 13 * 60;
+
+// Locations
+const LOCS = {
+  'gastrologen': {
+    name: 'Gastrologen', address: 'Av. San Jerónimo 390',
+    lat: 19.332794, lng: -99.202026,
+    det: 'La clínica se encuentra en el <strong>tercer piso</strong> del edificio.',
+    park: '🅿️ No hay estacionamiento para pacientes. Se recomienda Fantasías Miguel (edificio contiguo). Solo el espacio para personas con problemas de movilidad está disponible en la clínica.',
+    arrival: 30
+  },
+  'san-angel': {
+    name: 'San Ángel Inn HMG', address: 'Árbol del Fuego #80',
+    lat: 19.328581, lng: -99.142693,
+    det: 'Endoscopia está ubicada en la <strong>planta baja</strong> del hospital, en la policlínica (junto al comedor del hospital).',
+    park: null, arrival: 60
+  },
+  'angeles-uni': {
+    name: 'Hospital Ángeles Universidad', address: 'Av. Universidad 1080',
+    lat: 19.365055, lng: -99.168236,
+    det: 'El registro es en la <strong>planta baja</strong>, en admisión hospitalaria.',
+    park: null, arrival: 60
+  },
+  'angeles-ped': {
+    name: 'Ángeles Pedregal', address: 'Camino a Santa Teresa 1055',
+    lat: 19.312122, lng: -99.220955,
+    det: 'Endoscopia está ubicada en la <strong>planta baja</strong>, junto a urgencias.',
+    park: null, arrival: 60
+  }
+};
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+function prev(d) { return (d + 6) % 7; }
+
+function fmt(min) {
+  min = ((min % 1440) + 1440) % 1440;
+  const h = Math.floor(min / 60), m = min % 60;
+  const p = h < 12 ? 'am' : 'pm';
+  const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
+  const ms = m === 0 ? '' : ':' + String(m).padStart(2,'0');
+  return h12 + ms + ' ' + p;
+}
+
+// ── Diet examples ─────────────────────────────────────────────────────────────
+
+function dietLigera() {
+  return `<details class="diet-ex">
+    <summary>🍽️ Ver ejemplos de comida ligera y sin grasa</summary>
+    <div class="dex-body">
+      <p><strong>Puede consumir:</strong></p>
+      <ul>
+        <li>Claras de huevo cocidas (sin aceite ni grasa)</li>
+        <li>Pechuga de pollo o pavo natural al vapor o hervida (sin aderezos)</li>
+        <li>Pan blanco sin semillas, galletas tipo María o Salmas</li>
+        <li>Arroz blanco o sopa de pasta sin grasa</li>
+        <li>Gelatina de agua, Ensure o batido de proteína</li>
+        <li>Yogur natural bajo en grasa (pequeña cantidad)</li>
+      </ul>
+      <p style="margin-top:8px"><strong>Debe evitar:</strong></p>
+      <ul>
+        <li>Alimentos fritos o preparados con aceite o mantequilla</li>
+        <li>Carnes grasosas, embutidos o mariscos</li>
+        <li>Lácteos enteros: leche, queso, crema, mantequilla</li>
+        <li>Frutas y verduras crudas, leguminosas</li>
+        <li>Pan integral, alimentos condimentados o picantes</li>
+        <li>Alcohol, bebidas carbonatadas</li>
+      </ul>
+    </div>
+  </details>`;
+}
+
+function dietLiquidos() {
+  return `<details class="diet-ex">
+    <summary>💧 Ver ejemplos de líquidos claros permitidos</summary>
+    <div class="dex-body">
+      <p><strong>Líquidos permitidos:</strong></p>
+      <ul>
+        <li>Agua natural o mineral sin sabor</li>
+        <li>Té sin leche: manzanilla, menta, hierbabuena, jengibre</li>
+        <li>Café negro (sin leche ni crema)</li>
+        <li>Jugos sin pulpa: manzana, pera o uva blanca (sin rojo ni morado)</li>
+        <li>Caldo de pollo o res bien colado, sin grasa</li>
+        <li>Gelatina de agua transparente (sin rojo ni morado)</li>
+        <li>Ensure o batido de proteína</li>
+      </ul>
+      <p style="margin-top:8px"><strong>No permitidos:</strong></p>
+      <ul>
+        <li>Leche, yogur, crema, batidos con leche</li>
+        <li>Jugos con pulpa o con colorante rojo/morado</li>
+        <li>Sopas con pasta o verduras</li>
+        <li>Bebidas con alcohol o carbonatadas</li>
+      </ul>
+    </div>
+  </details>`;
+}
+
+// ── HTML builders ─────────────────────────────────────────────────────────────
+
+function bloque(dia, sub, body) {
+  return `<div class="day-block">
+    <div class="day-lbl"><span class="emo">📅</span><span class="dname">${dia}</span><span class="dsub">${sub}</span></div>
+    ${body}
+  </div>`;
+}
+
+function bStop(hora, nota) {
+  return `<div class="box bx-stop">🚫 <strong>Ayuno completo a partir de las ${hora}:</strong> ${nota}</div>`;
+}
+
+function bInfo(cuerpo) {
+  return `<div class="box bx-info">${cuerpo}</div>`;
+}
+
+// ── Main prep generator ───────────────────────────────────────────────────────
+
+function genPrep(proc, tipo, diet) {
+  const solidCutoff  = proc - SOLID_FAST;
+  const liquidCutoff = proc - LIQUID_FAST;
+
+  const procNombre = tipo === 'cpre' ? 'CPRE' : 'Panendoscopia';
+  let h = `<div class="prep-title">Preparación para ${procNombre}
+    <small>${proc < T_EARLY ? 'Procedimiento matutino — preparación la noche anterior'
+           : proc < T_LIQUID ? 'Procedimiento de mañana — solo líquidos en ayuno parcial'
+           : 'Procedimiento vespertino — desayuno ligero permitido'}</small>
+  </div>`;
+
+  // ── earlyFast: proc < 10 am ──
+  // Last solid food = dinner night before; morning = water only then fast
+  if (proc < T_EARLY) {
+    const d0 = 'el día del procedimiento';
+    const d1str = 'la noche anterior';
+
+    h += bloque('La noche anterior', '', `
+      <p class="instr"><strong>Cene de manera ligera y sin grasa.</strong> Evite alimentos fritos, caldos grasos, carnes pesadas o cenas abundantes.</p>
+      ${diet ? dietLigera() : ''}
+      <p class="instr">No consuma nada sólido después de las <strong>10:00 pm</strong>.</p>
+    `);
+
+    const liquidNote = liquidCutoff >= 6 * 60
+      ? `<p class="instr">Puede tomar <strong>líquidos claros</strong> hasta las <strong>${fmt(liquidCutoff)}</strong>.</p>${diet ? dietLiquidos() : ''}`
+      : `<p class="instr">Puede beber <strong>un vaso de agua</strong> al despertar. Después, ayuno completo.</p>`;
+
+    h += bloque('El día del procedimiento', '', `
+      ${liquidNote}
+      ${bStop(fmt(liquidCutoff), 'No consuma alimentos ni bebidas hasta después del procedimiento.')}
+    `);
+
+  // ── liquidMorn: 10 am ≤ proc < 1 pm ──
+  // Morning: clear liquids only until liquid cutoff
+  } else if (proc < T_LIQUID) {
+    h += bloque('El día del procedimiento', '', `
+      <p class="instr"><strong>Durante la mañana:</strong> Solo líquidos claros hasta las <strong>${fmt(liquidCutoff)}</strong>. No consuma alimentos sólidos.</p>
+      ${diet ? dietLiquidos() : ''}
+      ${bStop(fmt(liquidCutoff), 'No consuma alimentos ni bebidas hasta después del procedimiento.')}
+    `);
+
+  // ── breakfast: proc ≥ 1 pm ──
+  // Light breakfast until solid cutoff, then clear liquids until liquid cutoff
+  } else {
+    h += bloque('El día del procedimiento', '', `
+      <p class="instr"><strong>Desayuno ligero y sin grasa</strong> hasta las <strong>${fmt(solidCutoff)}</strong>. Evite alimentos fritos, grasos, cenas abundantes o lácteos enteros.</p>
+      ${diet ? dietLigera() : ''}
+      <p class="instr"><strong>De ${fmt(solidCutoff)} a ${fmt(liquidCutoff)}:</strong> Solo líquidos claros.</p>
+      ${diet ? dietLiquidos() : ''}
+      ${bStop(fmt(liquidCutoff), 'No consuma alimentos ni bebidas hasta después del procedimiento.')}
+    `);
+  }
+
+  return h;
+}
+
+// ── Medications ───────────────────────────────────────────────────────────────
+
+function medicamentosHTML(tipo) {
+  const esCPRE = tipo === 'cpre';
+  const det = (title, body) =>
+    `<details class="info-det"><summary>${title}</summary><div>${body}</div></details>`;
+
+  return `<div class="info-card med-card">
+    <span class="info-title">💊 Medicamentos de uso crónico</span>
+    <p style="font-size:.76rem;color:var(--muted);margin-bottom:14px;margin-top:-8px">Instrucciones generales para el día del procedimiento. Ante cualquier duda, consulte con su médico.</p>
+    ${det('Antihipertensivos (pastillas para la presión)',
+      'Tome su dosis habitual en la mañana con un sorbo pequeño de agua. Incluye: lisinopril, enalapril, losartán, valsartán, amlodipino, metoprolol, bisoprolol y similares.')}
+    ${det('Medicamentos para la tiroides (levotiroxina · Eutirox · Synthroid)',
+      'Tome su dosis habitual en ayunas con un sorbo de agua, como de costumbre. No la omita.')}
+    ${det('Aspirina (uso cardioprotector)',
+      esCPRE
+        ? 'Para <strong>CPRE diagnóstica</strong>, generalmente puede continuar. Si se planea <strong>esfinterotomía</strong>, su médico le indicará si debe suspenderla con anticipación. Confirme con su médico.'
+        : 'Puede continuar tomándola. No es necesario suspenderla para una panendoscopia diagnóstica de rutina.')}
+    ${det('Protectores de estómago (omeprazol · pantoprazol · lansoprazol · esomeprazol)',
+      'Continúe tomándolos normalmente en la mañana del procedimiento.')}
+    ${det('Estatinas (atorvastatina · rosuvastatina · simvastatina)',
+      'Continúe tomándolas con normalidad.')}
+    ${det('Hipoglucemiantes orales (metformina · glibenclamida · sitagliptina · empagliflozina y similares)',
+      esCPRE
+        ? 'Suspenda el día del procedimiento por el ayuno. Si se utilizará medio de contraste, suspenda la <strong>metformina 48 horas antes</strong> y retómela hasta que su función renal sea confirmada. Consulte con su médico.'
+        : 'En general se suspenden el día del procedimiento por el ayuno prolongado. Consulte con su médico cuándo retomarlos.')}
+    ${det('Insulina',
+      'Requiere ajuste de dosis el día del procedimiento. <strong>Contacte a su médico con anticipación</strong> para recibir instrucciones específicas sobre reducción de dosis.')}
+    ${det(esCPRE ? 'Anticoagulantes y antiagregantes — especialmente importante para CPRE' : 'Anticoagulantes (warfarina · rivaroxabán · apixabán · dabigatrán · acenocumarol)',
+      esCPRE
+        ? '<strong>Para CPRE con posible esfinterotomía</strong>, tanto anticoagulantes como antiagregantes (clopidogrel, ticagrelor, prasugrel) generalmente deben suspenderse con anticipación. <strong>Contacte a su médico lo antes posible para recibir instrucciones personalizadas.</strong>'
+        : 'Generalmente requieren suspenderse con anticipación. <strong>Contacte a su médico</strong> para recibir instrucciones personalizadas. No los suspenda por su cuenta.')}
+    ${det('AINEs (ibuprofeno · naproxeno · diclofenaco · ketorolaco)',
+      'Evite tomarlos el día del procedimiento. Si los usa de forma crónica, consúltenos antes de suspenderlos.')}
+    <div class="glp1-box">
+      <div class="glp1-title">⚠️ Agonistas del receptor GLP-1</div>
+      <div class="glp1-sub">Ozempic · Wegovy · Victoza · Saxenda · Trulicity · Mounjaro · Rybelsus</div>
+      <div class="glp1-body">
+        Estos medicamentos <strong>retrasan el vaciamiento gástrico</strong> de forma significativa. Durante una endoscopia alta, el estómago debe estar completamente vacío — el riesgo de aspiración de contenido gástrico residual es mayor en pacientes que los usan.<br><br>
+        <strong>Dosis semanal</strong> (semaglutida, dulaglutida, tirzepatida): suspenda <strong>7 días antes</strong> del procedimiento.<br>
+        <strong>Dosis diaria</strong> (liraglutida): suspenda <strong>el día anterior</strong> al procedimiento.<br><br>
+        <strong>Consulte con su médico para confirmar antes de suspender.</strong>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── Appointment ───────────────────────────────────────────────────────────────
+
+function citaSection(d0, horaFmt, locKey, proc, tipo) {
+  const L = LOCS[locKey];
+  if (!L) return '';
+  const gmaps = `https://www.google.com/maps/search/?api=1&query=${L.lat},${L.lng}`;
+  const imgSrc = `https://staticmap.openstreetmap.de/staticmap.php?center=${L.lat},${L.lng}&zoom=15&size=640x220&markers=${L.lat},${L.lng},red-pushpin`;
+  const hidePark = locKey === 'gastrologen' && proc >= 17 * 60;
+  const parkHtml = (L.park && !hidePark) ? `<span class="loc-park">${L.park}</span>` : '';
+  const procNombre = tipo === 'cpre' ? 'CPRE' : 'Panendoscopia';
+
+  return `
+  <div class="appt">
+    <h3>📋 Detalles del procedimiento</h3>
+    <div class="arow">🩺 <strong>${procNombre}</strong></div>
+    <div class="arow">📅 <strong>${d0}</strong></div>
+    <div class="arow">🕐 Cita a las <strong>${horaFmt}</strong> — llegar <strong>${L.arrival} minutos antes</strong></div>
+    <div class="arow">📍 <strong>${L.name}</strong> &nbsp;·&nbsp; <span style="font-size:.83rem;opacity:.85">${L.address}</span></div>
+  </div>
+  <div class="loc-card">
+    <div class="loc-det">${L.det}${parkHtml}</div>
+    <img class="map-img" src="${imgSrc}" alt="Mapa de ${L.name}" loading="lazy"
+         onerror="this.style.display='none'">
+    <a href="${gmaps}" target="_blank" rel="noopener noreferrer" class="map-btn">🗺️ Abrir en Google Maps</a>
+  </div>`;
+}
+
+function notasGen() {
+  return `<div class="gnotes">
+    <strong>Indicaciones generales</strong><br>
+    • Acuda con un acompañante adulto.<br>
+    • No conduzca el resto del día por efecto de la sedación.<br>
+    • Si toma medicamentos de rutina, consulte con su médico si debe tomarlos ese día.
+  </div>`;
+}
+
+// ── Main ──────────────────────────────────────────────────────────────────────
+
+function gen() {
+  const tipo  = document.getElementById('sx').value;
+  const sd    = document.getElementById('sd').value;
+  const sh    = document.getElementById('sh').value;
+  const sl    = document.getElementById('sl').value;
+  const diet  = document.getElementById('ck-dieta').checked;
+  const meds  = document.getElementById('ck-medicamentos').checked;
+  const out   = document.getElementById('out');
+
+  if (!tipo || sd === '' || !sh || !sl) {
+    out.innerHTML = `<div class="empty"><span class="ico">🩺</span>Seleccione todos los campos para generar las instrucciones.</div>`;
+    return;
+  }
+
+  const dIdx = parseInt(sd), proc = parseInt(sh);
+  const d0   = DIAS[dIdx];
+
+  out.innerHTML = genPrep(proc, tipo, diet)
+    + citaSection(d0, fmt(proc), sl, proc, tipo)
+    + notasGen()
+    + (meds ? medicamentosHTML(tipo) : '');
+}
+</script>
+</body>
+</html>
