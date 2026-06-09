@@ -172,9 +172,16 @@ details.diet-ex[open] summary::after { transform: rotate(-180deg); }
 .ftr { text-align: center; padding: 24px 16px; font-size: .7rem; color: var(--muted); line-height: 1.9; }
 .ftr a { color: var(--pri); text-decoration: none; }
 
+/* ── PDF button ── */
+.pdf-btn { display: block; background: var(--pri); color: var(--white); border: none;
+           border-radius: 10px; padding: 14px 28px; font-size: .9rem; font-weight: 700;
+           cursor: pointer; width: 100%; box-shadow: 0 2px 8px rgba(12,122,105,.2);
+           margin-top: 14px; }
+.pdf-btn:hover { background: var(--pri-dark); }
+
 @media print {
   body { background: white; }
-  .sel-card { display: none; }
+  .sel-card, #pdf-wrap { display: none !important; }
   .out-card, .hdr { box-shadow: none; border: none; }
   .map-img { display: none; }
 }
@@ -203,13 +210,29 @@ details.diet-ex[open] summary::after { transform: rotate(-180deg); }
   <div class="sel-card">
     <h2>🔬 Generar instrucciones de preparación</h2>
 
-    <div class="fg">
-      <span class="lbl">Tipo de procedimiento</span>
-      <select id="sx" onchange="gen()">
-        <option value="">— Seleccione —</option>
-        <option value="panen">Panendoscopia</option>
-        <option value="cpre">CPRE</option>
-      </select>
+    <div class="row2">
+      <div class="fg">
+        <span class="lbl">Tipo de procedimiento</span>
+        <select id="sx" onchange="gen()">
+          <option value="">— Seleccione —</option>
+          <option value="panen">Panendoscopia</option>
+          <option value="cpre">CPRE</option>
+        </select>
+      </div>
+      <div class="fg">
+        <span class="lbl">Motivo del estudio</span>
+        <select id="sm" onchange="gen()">
+          <option value="">— Seleccione —</option>
+          <option value="reflujo">Reflujo / ERGE</option>
+          <option value="gastritis">Gastritis · Dispepsia</option>
+          <option value="sangrado">Sangrado digestivo</option>
+          <option value="anemia">Anemia</option>
+          <option value="tamizaje">Tamizaje (sin síntomas)</option>
+          <option value="seguimiento">Seguimiento · Control</option>
+          <option value="disfagia">Disfagia</option>
+          <option value="otro">Otro motivo</option>
+        </select>
+      </div>
     </div>
 
     <div class="row2">
@@ -277,7 +300,7 @@ details.diet-ex[open] summary::after { transform: rotate(-180deg); }
           <span class="tog-track"></span>
         </label>
         <div class="addon-txt">
-          <strong>Medicamentos de uso crónico</strong>
+          <strong>¿Qué hacer con los medicamentos que ya estoy tomando?</strong>
           <span>Instrucciones para el día del procedimiento</span>
         </div>
       </div>
@@ -289,6 +312,10 @@ details.diet-ex[open] summary::after { transform: rotate(-180deg); }
       <span class="ico">🩺</span>
       Seleccione el procedimiento, día, hora y lugar<br>para generar las instrucciones personalizadas.
     </div>
+  </div>
+
+  <div id="pdf-wrap" style="display:none">
+    <button class="pdf-btn" onclick="window.print()">📥 Descargar / Imprimir instrucciones en PDF</button>
   </div>
 
 </div>
@@ -415,7 +442,7 @@ function dietLiquidos() {
 
 function bloque(dia, sub, body) {
   return `<div class="day-block">
-    <div class="day-lbl"><span class="emo">📅</span><span class="dname">${dia}</span><span class="dsub">${sub}</span></div>
+    <div class="day-lbl"><span class="emo">🗓️</span><span class="dname">${dia}</span><span class="dsub">${sub}</span></div>
     ${body}
   </div>`;
 }
@@ -488,13 +515,14 @@ function genPrep(proc, tipo, diet) {
 
 // ── Medications ───────────────────────────────────────────────────────────────
 
-function medicamentosHTML(tipo) {
-  const esCPRE = tipo === 'cpre';
+function medicamentosHTML(tipo, motivo) {
+  const esCPRE  = tipo === 'cpre';
+  const esReflujo = motivo === 'reflujo';
   const det = (title, body) =>
     `<details class="info-det"><summary>${title}</summary><div>${body}</div></details>`;
 
   return `<div class="info-card med-card">
-    <span class="info-title">💊 Medicamentos de uso crónico</span>
+    <span class="info-title">💊 ¿Qué hacer con los medicamentos que ya estoy tomando?</span>
     <p style="font-size:.76rem;color:var(--muted);margin-bottom:14px;margin-top:-8px">Instrucciones generales para el día del procedimiento. Ante cualquier duda, consulte con su médico.</p>
     ${det('Antihipertensivos (pastillas para la presión)',
       'Tome su dosis habitual en la mañana con un sorbo pequeño de agua. Incluye: lisinopril, enalapril, losartán, valsartán, amlodipino, metoprolol, bisoprolol y similares.')}
@@ -504,8 +532,10 @@ function medicamentosHTML(tipo) {
       esCPRE
         ? 'Para <strong>CPRE diagnóstica</strong>, generalmente puede continuar. Si se planea <strong>esfinterotomía</strong>, su médico le indicará si debe suspenderla con anticipación. Confirme con su médico.'
         : 'Puede continuar tomándola. No es necesario suspenderla para una panendoscopia diagnóstica de rutina.')}
-    ${det('Protectores de estómago (omeprazol · pantoprazol · lansoprazol · esomeprazol)',
-      'Continúe tomándolos normalmente en la mañana del procedimiento.')}
+    ${det('Protectores de estómago (omeprazol · pantoprazol · lansoprazol · esomeprazol · Ki-Cab (tegoprazan) · Abcito (fexuprazan))',
+      esReflujo
+        ? '⚠️ <strong>Su estudio es por reflujo / ERGE:</strong> Suspenda su toma de <strong>2 a 4 semanas antes</strong> del procedimiento, a menos que su médico le indique lo contrario. Tomarlos puede enmascarar los hallazgos del estudio.'
+        : 'Continúe tomándolos normalmente en la mañana del procedimiento.')}
     ${det('Estatinas (atorvastatina · rosuvastatina · simvastatina)',
       'Continúe tomándolas con normalidad.')}
     ${det('Hipoglucemiantes orales (metformina · glibenclamida · sitagliptina · empagliflozina y similares)',
@@ -548,7 +578,7 @@ function citaSection(d0, horaFmt, locKey, proc, tipo) {
   <div class="appt">
     <h3>📋 Detalles del procedimiento</h3>
     <div class="arow">🩺 <strong>${procNombre}</strong></div>
-    <div class="arow">📅 <strong>${d0}</strong></div>
+    <div class="arow">🗓️ <strong>${d0}</strong></div>
     <div class="arow">🕐 Cita a las <strong>${horaFmt}</strong> — llegar <strong>${L.arrival} minutos antes</strong></div>
     <div class="arow">📍 <strong>${L.name}</strong> &nbsp;·&nbsp; <span style="font-size:.83rem;opacity:.85">${L.address}</span></div>
   </div>
@@ -572,16 +602,18 @@ function notasGen() {
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 function gen() {
-  const tipo  = document.getElementById('sx').value;
-  const sd    = document.getElementById('sd').value;
-  const sh    = document.getElementById('sh').value;
-  const sl    = document.getElementById('sl').value;
-  const diet  = document.getElementById('ck-dieta').checked;
-  const meds  = document.getElementById('ck-medicamentos').checked;
+  const tipo   = document.getElementById('sx').value;
+  const motivo = document.getElementById('sm').value;
+  const sd     = document.getElementById('sd').value;
+  const sh     = document.getElementById('sh').value;
+  const sl     = document.getElementById('sl').value;
+  const diet   = document.getElementById('ck-dieta').checked;
+  const meds   = document.getElementById('ck-medicamentos').checked;
   const out   = document.getElementById('out');
 
   if (!tipo || sd === '' || !sh || !sl) {
     out.innerHTML = `<div class="empty"><span class="ico">🩺</span>Seleccione todos los campos para generar las instrucciones.</div>`;
+    document.getElementById('pdf-wrap').style.display = 'none';
     return;
   }
 
@@ -591,7 +623,9 @@ function gen() {
   out.innerHTML = genPrep(proc, tipo, diet)
     + citaSection(d0, fmt(proc), sl, proc, tipo)
     + notasGen()
-    + (meds ? medicamentosHTML(tipo) : '');
+    + (meds ? medicamentosHTML(tipo, motivo) : '');
+
+  document.getElementById('pdf-wrap').style.display = 'block';
 }
 </script>
 </body>
