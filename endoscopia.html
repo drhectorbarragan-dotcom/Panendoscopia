@@ -456,7 +456,8 @@ function dietLigera() {
         <li>Pechuga de pollo o pavo natural al vapor o hervida (sin aderezos)</li>
         <li>Pan blanco sin semillas, galletas tipo María o Salmas</li>
         <li>Arroz blanco o sopa de pasta sin grasa</li>
-        <li>Gelatina de agua, Ensure o batido de proteína</li>
+        <li>Gelatina de agua</li>
+        <li>Ensure o batido de proteína (líquidos completos — permitidos como complemento alimenticio, <strong>no</strong> durante la etapa de líquidos claros)</li>
         <li>Yogur natural bajo en grasa (pequeña cantidad)</li>
       </ul>
       <p style="margin-top:8px"><strong>Debe evitar:</strong></p>
@@ -484,13 +485,13 @@ function dietLiquidos() {
         <li>Jugos sin pulpa: manzana, pera o uva blanca (sin rojo ni morado)</li>
         <li>Caldo de pollo o res bien colado, sin grasa</li>
         <li>Gelatina de agua transparente (sin rojo ni morado)</li>
-        <li>Ensure o batido de proteína</li>
       </ul>
-      <p style="margin-top:8px"><strong>No permitidos:</strong></p>
+      <p style="margin-top:8px"><strong>No permitidos (aunque parezcan líquidos):</strong></p>
       <ul>
         <li>Leche, yogur, crema, batidos con leche</li>
         <li>Jugos con pulpa o con colorante rojo/morado</li>
         <li>Sopas con pasta o verduras</li>
+        <li><strong>Ensure, batidos de proteína</strong> — son líquidos completos (poliméricos), no líquidos claros</li>
         <li>Bebidas con alcohol o carbonatadas</li>
       </ul>
     </div>
@@ -801,6 +802,33 @@ function buildPrintEndo(tipo, proc, motivo, diet, meds, d0, locKey) {
     </div>
     ${pvRenderTL(evD1)}` : '';
 
+  // ── Page 2: diet + meds (only if selected) ─────────────────────────────────
+  const pg2DietEndo = diet ? `
+    <div class="pv-pg2-t">🍽️ Ejemplos de comida ligera y sin grasa</div>
+    <div style="font-size:.75rem;line-height:1.5;margin-bottom:6px;">
+      <strong>Puede consumir:</strong> Claras de huevo cocidas, pechuga de pollo al vapor, pan blanco sin semillas, galletas María, arroz blanco, sopa de pasta sin grasa, gelatina de agua. Ensure o batidos de proteína son aceptados como complemento alimenticio.
+    </div>
+    <div style="font-size:.75rem;line-height:1.5;margin-bottom:6px;">
+      <strong>Debe evitar:</strong> Fritos o alimentos con aceite/mantequilla, carnes grasosas, lácteos enteros (leche, queso, crema), frutas y verduras crudas, leguminosas, pan integral, condimentados o picantes, alcohol.
+    </div>
+    <div class="pv-pg2-t" style="margin-top:8px;">💧 Líquidos claros permitidos</div>
+    <div style="font-size:.75rem;line-height:1.5;margin-bottom:6px;">
+      <strong>Permitidos:</strong> Agua natural, té sin leche (manzanilla, menta, jengibre), café negro, jugos sin pulpa de manzana o pera (sin rojo ni morado), caldo colado y sin grasa, gelatina de agua transparente. <em>Nota: Ensure y batidos de proteína son líquidos completos, no líquidos claros.</em>
+    </div>
+    <div style="font-size:.75rem;line-height:1.5;margin-bottom:6px;">
+      <strong>No permitidos:</strong> Leche, yogur, crema, jugos con pulpa o colorante rojo/morado, sopas con verduras, alcohol, bebidas carbonatadas.
+    </div>` : '';
+
+  const pg2Endo = (diet || meds) ? `
+    <div class="pv-pg2">
+      <div class="pv-hdr" style="margin-bottom:8px;">
+        <div class="pv-dr">Dr. Héctor Hugo Barragán Córdova</div>
+        <div class="pv-esp">Información complementaria — Preparación para ${procNombre}</div>
+      </div>
+      ${pg2DietEndo}
+      ${meds ? pvMedsEndo(tipo, motivo) : ''}
+    </div>` : '';
+
   return `<div class="pv-hdr">
     <div class="pv-dr">Dr. Héctor Hugo Barragán Córdova</div>
     <div class="pv-esp">Medicina Interna &nbsp;·&nbsp; Gastroenterología &nbsp;·&nbsp; Endoscopia Gastrointestinal</div>
@@ -817,11 +845,11 @@ function buildPrintEndo(tipo, proc, motivo, diet, meds, d0, locKey) {
   </div>
   ${pvRenderTL(evD0)}
   ${apptBox}
-  ${meds ? pvMedsEndo(tipo, motivo) : ''}
   <div class="pv-nota">
     Acuda con un acompañante adulto &nbsp;·&nbsp; No conduzca el resto del día &nbsp;·&nbsp;
     Dudas: 📞&nbsp;55&nbsp;5568-7056 &nbsp;·&nbsp; 💬&nbsp;WhatsApp&nbsp;55&nbsp;3204-8657
-  </div>`;
+  </div>
+  ${pg2Endo}`;
 }
 
 </script>
