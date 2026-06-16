@@ -179,12 +179,71 @@ details.diet-ex[open] summary::after { transform: rotate(-180deg); }
            margin-top: 14px; }
 .pdf-btn:hover { background: var(--pri-dark); }
 
+/* ── Print View ── */
+#print-view { display: none; }
+@page { size: letter; margin: 0mm; }
 @media print {
-  body { background: white; }
-  .sel-card, #pdf-wrap { display: none !important; }
-  .out-card, .hdr { box-shadow: none; border: none; }
-  .map-img { display: none; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { background: white !important; margin: 0; padding: 0; }
+  .hdr, .wrap, .ftr { display: none !important; }
+  #print-view {
+    display: block !important;
+    font-size: 8.5pt;
+    padding: 11mm 14mm;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #172824;
+    line-height: 1.35;
+    max-width: 100%;
+    margin: 0;
+  }
 }
+.pv-hdr { text-align:center; padding-bottom:6px; margin-bottom:8px;
+          border-bottom:2px solid #0c7a69; }
+.pv-dr  { font-size:.95rem; font-weight:800; color:#085e50; }
+.pv-esp { font-size:.73rem; color:#557068; margin-top:2px; }
+.pv-ced { font-size:.68rem; color:#999; margin-top:1px; }
+.pv-proc { text-align:center; margin:6px 0 8px; }
+.pv-proc-t { font-size:.88rem; font-weight:800; color:#085e50; }
+.pv-proc-s { font-size:.74rem; color:#557068; display:block; margin-top:3px; }
+.pv-dh { display:flex; align-items:center; gap:6px; margin:8px 0 3px;
+         padding:4px 8px; background:#e5f4f1; border-left:3px solid #0c7a69;
+         border-radius:0 6px 6px 0; page-break-after:avoid; }
+.pv-dh .pv-dn { font-weight:800; font-size:.86rem; color:#085e50;
+                text-transform:uppercase; letter-spacing:.05em; }
+.pv-dh .pv-ds { font-size:.73rem; color:#557068; }
+.pv-tl  { list-style:none; padding:0; margin:0 0 3px 0; }
+.pv-tl li { display:flex; gap:8px; padding:3px 0 3px 8px;
+            border-bottom:.5pt solid #e8f0ef; font-size:.78rem;
+            align-items:flex-start; }
+.pv-tl li:last-child { border-bottom:none; }
+.pv-tm  { min-width:62px; font-weight:700; color:#0c7a69; flex-shrink:0; padding-top:1px; }
+.pv-tx  { flex:1; }
+.pv-stop-row { background:#fff4f4 !important; border-radius:4px; }
+.pv-stop-row .pv-tm { color:#c03030 !important; }
+.pv-stop-row .pv-tx { color:#c03030; font-weight:700; }
+.pv-appt-box { background:#e5f4f1; border-radius:7px; padding:6px 10px;
+               margin-top:4px; font-size:.77rem; }
+.pv-appt-box .apr { display:flex; gap:6px; padding:1.5px 0; }
+.ptag { display:inline-block; font-size:.65rem; font-weight:800; border-radius:3px;
+        padding:0 5px; margin-right:4px; vertical-align:middle; }
+.ptag-diet { background:#e8f7f0; color:#1d6b4a; }
+.ptag-prep { background:#e5f4f1; color:#085e50; }
+.ptag-lib  { background:#ede8ff; color:#5030a0; }
+.ptag-sen  { background:#f5e8ff; color:#6a20a0; }
+.pv-meds { margin-top:8px; padding-top:6px; border-top:1.5pt solid #e5f4f1; }
+.pv-mt   { font-size:.76rem; font-weight:800; color:#3020a0; margin-bottom:4px; }
+.pv-mtbl { width:100%; border-collapse:collapse; font-size:.71rem; }
+.pv-mtbl td { padding:2.5px 6px; vertical-align:top; border-bottom:.5pt solid #eeecff; }
+.pv-mtbl .mn { font-weight:600; width:44%; color:#172824; }
+.pv-mtbl .mi { color:#333; }
+.pv-mtbl tr:last-child td { border-bottom:none; }
+.pv-glp1 { background:#fff8ed; border:1pt solid #f59e0b; border-radius:5px;
+            padding:4px 8px; margin-top:5px; font-size:.7rem; }
+.pv-nota { margin-top:6px; padding:4px 8px; background:#f3f8f7;
+           border-radius:6px; font-size:.69rem; color:#557068; }
+.pv-pg2  { break-before:page; page-break-before:always; padding-top:11mm; }
+.pv-pg2-t { font-size:.82rem; font-weight:800; color:#085e50; margin-bottom:8px;
+            padding-bottom:5px; border-bottom:1.5pt solid #e5f4f1; }
 </style>
 </head>
 <body>
@@ -200,7 +259,7 @@ details.diet-ex[open] summary::after { transform: rotate(-180deg); }
     <span class="pill">🏥 Gastrologen</span>
   </div>
   <div class="contact">
-    📞 55&nbsp;5568-7058 &nbsp;·&nbsp; 55&nbsp;3683-7574 &nbsp;·&nbsp; 📱 55&nbsp;3204-8657<br>
+    📞 55&nbsp;5568-7056 &nbsp;·&nbsp; 55&nbsp;3683-7574 &nbsp;·&nbsp; 📱 55&nbsp;3204-8657<br>
     <a href="https://wa.me/525532048657?text=Hola%20Dr.%20Barragán%2C%20tengo%20una%20pregunta%20sobre%20mi%20preparación">💬 Escribir al Dr. por WhatsApp</a>
   </div>
 </div>
@@ -322,7 +381,7 @@ details.diet-ex[open] summary::after { transform: rotate(-180deg); }
 
 <div class="ftr">
   Dr. Héctor Hugo Barragán Córdova &nbsp;·&nbsp; Medicina Interna · Gastroenterología · Endoscopia Gastrointestinal<br>
-  📞 55 5568-7058 &nbsp;·&nbsp; 55 3683-7574 &nbsp;·&nbsp; 📱 55 3204-8657<br>
+  📞 55 5568-7056 &nbsp;·&nbsp; 55 3683-7574 &nbsp;·&nbsp; 📱 55 3204-8657<br>
   <a href="https://wa.me/525532048657">💬 WhatsApp: 55 3204-8657</a>
 </div>
 
@@ -381,7 +440,7 @@ function fmt(min) {
   const h = Math.floor(min / 60), m = min % 60;
   const p = h < 12 ? 'am' : 'pm';
   const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
-  const ms = m === 0 ? '' : ':' + String(m).padStart(2,'0');
+  const ms = ':' + String(m).padStart(2,'0');
   return h12 + ms + ' ' + p;
 }
 
@@ -626,7 +685,146 @@ function gen() {
     + (meds ? medicamentosHTML(tipo, motivo) : '');
 
   document.getElementById('pdf-wrap').style.display = 'block';
+  document.getElementById('print-view').innerHTML =
+    buildPrintEndo(tipo, proc, motivo, diet, meds, d0, sl);
 }
+
+// ── Print View Builder ───────────────────────────────────────────────────────
+
+function pvRenderTL(evs) {
+  if (!evs.length) return '';
+  return '<ul class="pv-tl">' + evs.map(ev => {
+    const tm = ev.time !== null
+      ? `<span class="pv-tm">${fmt(ev.time)}</span>`
+      : '<span class="pv-tm"></span>';
+    if (ev.type === 'stop') {
+      return `<li class="pv-stop-row">${tm}<span class="pv-tx">🚫 ${ev.text}</span></li>`;
+    }
+    const labels = {diet:'Dieta'};
+    const clss   = {diet:'ptag-diet'};
+    const tag = labels[ev.type]
+      ? `<span class="ptag ${clss[ev.type]}">${labels[ev.type]}</span>` : '';
+    return `<li>${tm}<span class="pv-tx">${tag}${ev.text}</span></li>`;
+  }).join('') + '</ul>';
+}
+
+function pvMedsEndo(tipo, motivo) {
+  const esCPRE    = tipo === 'cpre';
+  const esReflujo = motivo === 'reflujo';
+  const ibpInstr  = esReflujo
+    ? '⚠️ <strong>Suspenda 2–4 semanas antes</strong> (estudio por reflujo/ERGE). Confirme con su médico.'
+    : 'Continúe tomándolos normalmente en la mañana del procedimiento.';
+  const aspirinInstr = esCPRE
+    ? 'Para CPRE diagnóstica, generalmente puede continuar. Si se planea esfinterotomía, confirme con su médico.'
+    : 'Puede continuar. No requiere suspenderse para panendoscopia diagnóstica de rutina.';
+  const hipogInstr = esCPRE
+    ? 'Suspenda el día del procedimiento. Si se usa medio de contraste, suspenda metformina 48 h antes — confirme con su médico.'
+    : 'Suspenda el día del procedimiento por el ayuno. Consulte cuándo retomarlos.';
+  const anticoagInstr = esCPRE
+    ? '<strong>Para CPRE con esfinterotomía</strong>, generalmente requieren suspenderse. <strong>Contacte a su médico lo antes posible.</strong>'
+    : 'Generalmente requieren suspenderse con anticipación. <strong>No suspenda por su cuenta — contacte a su médico.</strong>';
+
+  return `<div class="pv-meds">
+  <div class="pv-mt">💊 ¿Qué hacer con los medicamentos que ya estoy tomando?</div>
+  <table class="pv-mtbl">
+    <tr><td class="mn">Antihipertensivos (presión)</td>
+        <td class="mi">Tome su dosis habitual con un sorbo de agua.</td></tr>
+    <tr><td class="mn">Tiroides (levotiroxina · Eutirox)</td>
+        <td class="mi">Tome en ayunas con un sorbo de agua. No la omita.</td></tr>
+    <tr><td class="mn">Aspirina (cardioprotectora)</td>
+        <td class="mi">${aspirinInstr}</td></tr>
+    <tr><td class="mn">Protectores de estómago (omeprazol, pantoprazol, Ki-Cab, Abcito...)</td>
+        <td class="mi">${ibpInstr}</td></tr>
+    <tr><td class="mn">Estatinas (atorvastatina, rosuvastatina...)</td>
+        <td class="mi">Continúe tomándolas con normalidad.</td></tr>
+    <tr><td class="mn">Hipoglucemiantes (metformina, sitagliptina...)</td>
+        <td class="mi">${hipogInstr}</td></tr>
+    <tr><td class="mn">Insulina</td>
+        <td class="mi">Requiere ajuste de dosis. <strong>Contacte a su médico con anticipación.</strong></td></tr>
+    <tr><td class="mn">Anticoagulantes (warfarina, rivaroxabán...)</td>
+        <td class="mi">${anticoagInstr}</td></tr>
+    <tr><td class="mn">AINEs (ibuprofeno, naproxeno, ketorolaco...)</td>
+        <td class="mi">Evite tomarlos el día del procedimiento.</td></tr>
+  </table>
+  <div class="pv-glp1"><strong>⚠️ GLP-1 (Ozempic · Wegovy · Victoza · Mounjaro · Saxenda · Rybelsus):</strong><br>
+    Dosis semanal → suspenda <strong>7 días antes</strong>. &nbsp;
+    Dosis diaria → suspenda <strong>el día anterior</strong>. &nbsp;
+    Consulte con su médico antes de suspender.</div>
+  </div>`;
+}
+
+function buildPrintEndo(tipo, proc, motivo, diet, meds, d0, locKey) {
+  const L = LOCS[locKey];
+  const procNombre   = tipo === 'cpre' ? 'CPRE' : 'Panendoscopia';
+  const solidCutoff  = proc - SOLID_FAST;
+  const liquidCutoff = proc - LIQUID_FAST;
+  const earlyProc    = proc < T_EARLY;
+  const liquidMorn   = proc >= T_EARLY && proc < T_LIQUID;
+
+  const evD1 = [], evD0 = [];
+  const a1 = (t, tp, tx) => evD1.push({time: t, type: tp, text: tx});
+  const a0 = (t, tp, tx) => evD0.push({time: t, type: tp, text: tx});
+
+  if (earlyProc) {
+    a1(null,'diet','Cene de manera ligera y sin grasa. Evite fritos, caldos grasos, cenas abundantes.');
+    a1(22*60,'diet','No consuma nada sólido después de las 10:00 pm.');
+    if (liquidCutoff >= 6*60) {
+      a0(null,'diet',`Puede tomar líquidos claros hasta las ${fmt(liquidCutoff)}.`);
+    } else {
+      a0(null,'diet','Puede beber un vaso de agua al despertar. Después, ayuno completo.');
+    }
+    a0(liquidCutoff,'stop','Ayuno completo. No consuma alimentos ni bebidas hasta después del procedimiento.');
+  } else if (liquidMorn) {
+    a0(null,'diet','Solo líquidos claros durante la mañana. No consuma alimentos sólidos.');
+    a0(liquidCutoff,'stop','Ayuno completo. No consuma alimentos ni bebidas hasta después del procedimiento.');
+  } else {
+    a0(null,'diet',`Desayuno ligero y sin grasa hasta las ${fmt(solidCutoff)}. Sin fritos, lácteos enteros ni alimentos pesados.`);
+    a0(solidCutoff,'diet',`Solo líquidos claros de ${fmt(solidCutoff)} a ${fmt(liquidCutoff)}.`);
+    a0(liquidCutoff,'stop','Ayuno completo. No consuma alimentos ni bebidas hasta después del procedimiento.');
+  }
+
+  const parkNoteE = (L.park && !(locKey === 'gastrologen' && proc >= 17*60))
+    ? `<div class="apr" style="font-size:.72rem;color:#557068;margin-top:2px;">${L.park}</div>` : '';
+  const apptBox = `<div class="pv-appt-box">
+    <div class="apr">🩺 <strong>${procNombre}</strong></div>
+    <div class="apr">🗓️ &nbsp;<strong>${d0}</strong> — a las <strong>${fmt(proc)}</strong></div>
+    <div class="apr">📍 <strong>${L.name}</strong> &nbsp;·&nbsp; ${L.address}</div>
+    <div class="apr" style="font-size:.78rem;color:#3a5a54;">${L.det}</div>
+    ${parkNoteE}
+    <div class="apr">⏰ Llegue <strong>${L.arrival} minutos antes</strong> para el registro</div>
+  </div>`;
+
+  const d1Block = evD1.length ? `
+    <div class="pv-dh"><span>🗓️</span>
+      <span class="pv-dn">La noche anterior</span>
+      <span class="pv-ds">— Preparación previa</span>
+    </div>
+    ${pvRenderTL(evD1)}` : '';
+
+  return `<div class="pv-hdr">
+    <div class="pv-dr">Dr. Héctor Hugo Barragán Córdova</div>
+    <div class="pv-esp">Medicina Interna &nbsp;·&nbsp; Gastroenterología &nbsp;·&nbsp; Endoscopia Gastrointestinal</div>
+    <div class="pv-ced">Cédula Prof. 4784900 &nbsp;·&nbsp; Esp. 7876212 &nbsp;·&nbsp; Esp. 8025889</div>
+  </div>
+  <div class="pv-proc">
+    <div class="pv-proc-t">Instrucciones de preparación para ${procNombre}</div>
+    <span class="pv-proc-s">Preparación basada en horario · sin laxante</span>
+  </div>
+  ${d1Block}
+  <div class="pv-dh"><span>🗓️</span>
+    <span class="pv-dn">${d0}</span>
+    <span class="pv-ds">— Día del procedimiento</span>
+  </div>
+  ${pvRenderTL(evD0)}
+  ${apptBox}
+  ${meds ? pvMedsEndo(tipo, motivo) : ''}
+  <div class="pv-nota">
+    Acuda con un acompañante adulto &nbsp;·&nbsp; No conduzca el resto del día &nbsp;·&nbsp;
+    Dudas: 📞&nbsp;55&nbsp;5568-7056 &nbsp;·&nbsp; 💬&nbsp;WhatsApp&nbsp;55&nbsp;3204-8657
+  </div>`;
+}
+
 </script>
+<div id="print-view"></div>
 </body>
 </html>
